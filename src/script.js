@@ -46,14 +46,36 @@ app.get('/help', (req, res)=>{
 app.get('/weather', (req, res)=>{
     if(!req.query.address){
         return res.send({
-            error: 'Please enter valid input'
+            error: 'Enter Valid Address'
         });
     };
-    res.send({
-        forecast: 'Sunny',
-        location: 'London',
-        address: req.query.address
-    });
+        if(req.query.address) {
+        geocode(address, (error, {latitude,longitude,location}) => {
+            if (error) {
+                return res.send({
+                    error: 'Something Went Wrong'
+                });
+            }
+
+            const coordinates = `${latitude}, ${longitude}`;
+
+            weather(coordinates, (error, data) => {
+
+                const {temp,rain,forecast,timeCheck} = data;
+                if (error) {
+                    return res.send({
+                    error: 'Something Went Wrong'
+                    });
+                }
+                res.send({
+                    Forecast: forecast,
+                    Temperature: temp, 
+                    ChancesOfRain: rain,
+                    CheckedAt: timeCheck
+                });
+            });
+        });
+    };
 });
 
 
@@ -79,3 +101,11 @@ app.get('*', (req, res)=>{
 app.listen(3000, ()=>{
     console.log('Connected to port 3000');
 });
+
+
+const process = require('process');
+
+const chalk = require('chalk')
+const geocode = require('./geocode');
+const weather = require('./weather');
+const address = process.argv[2];
