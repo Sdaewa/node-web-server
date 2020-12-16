@@ -1,7 +1,9 @@
-const submitBtn = document.getElementById('submitBtn');
+const submitBtn = document.getElementById('submit-btn');
+console.log(submitBtn)
+const input = document.getElementById('input');
 
 
-fetch('http://localhost:3000/weather?address=london').then((response) => {
+fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
         if (data.error) {
             console.log('error');
@@ -10,3 +12,11 @@ fetch('http://localhost:3000/weather?address=london').then((response) => {
         };
     });
 });
+
+const submitLocation = (location) => {
+    return location = input.value;
+}
+
+
+
+submitBtn.addEventListener('submit', submitLocation);
