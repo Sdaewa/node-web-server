@@ -12,7 +12,9 @@ const geocode = (address, callback) => {
     }, (error, {body}) => {
         if (error) {
             callback(`Low Level Error Geocode API`, undefined);
-        } else if (body.features.length === 0) {
+        } 
+        if (body.features.length === 0) {
+            console.log(body)
             callback(`Provide valid address`, undefined);
         } else {
             callback(undefined, {

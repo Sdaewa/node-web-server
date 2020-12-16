@@ -1,6 +1,5 @@
 const express = require('express'); 
 const app = express();
-const request = require('request');
 const path = require('path');
 const hbs = require('hbs');
 const geocode = require('./util/geocode');
@@ -44,12 +43,8 @@ app.get('/help', (req, res)=>{
 
 
 app.get('/weather', (req, res)=>{
-    if(!req.query.address){
-        return res.send({
-            error: 'Enter Valid Address'
-        });
-    };
-        if(req.query.address) {
+    const address = req.query.address;
+        if(address) {
         geocode(address, (error, {latitude,longitude,location}) => {
             if (error) {
                 return res.send({
@@ -58,6 +53,7 @@ app.get('/weather', (req, res)=>{
             }
 
             const coordinates = `${latitude}, ${longitude}`;
+
 
             weather(coordinates, (error, data) => {
 
@@ -68,12 +64,19 @@ app.get('/weather', (req, res)=>{
                     });
                 }
                 res.send({
+                    Location: location,
                     Forecast: forecast,
                     Temperature: temp, 
                     ChancesOfRain: rain,
                     CheckedAt: timeCheck
                 });
             });
+        });
+    };
+
+        if(!req.query.address){
+        return res.send({
+            error: 'Enter Valid Address'
         });
     };
 });
@@ -101,11 +104,3 @@ app.get('*', (req, res)=>{
 app.listen(3000, ()=>{
     console.log('Connected to port 3000');
 });
-
-
-const process = require('process');
-
-const chalk = require('chalk')
-const geocode = require('./geocode');
-const weather = require('./weather');
-const address = process.argv[2];
