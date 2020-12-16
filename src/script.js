@@ -47,14 +47,14 @@ app.get('/weather', (req, res) => {
 
     if (!address) {
         return res.send({
-            error: 'Enter Valid Address'
+            error
         });
     };
     geocode(address, (error, {
         latitude,
         longitude,
         location
-    }) => {
+    } = {}) => {
         if (error) {
             return res.send({
                 error
