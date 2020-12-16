@@ -1,10 +1,13 @@
 const express = require('express'); 
+const app = express();
+const request = require('request');
 const path = require('path');
 const hbs = require('hbs');
-const app = express();
+const geocode = require('./util/geocode');
+const weather = require('./util/weather');
 
 //path for Express config
-const publicPath = path.join(__dirname, '../public')
+const publicPath = path.join(__dirname, '../public');w
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
 
@@ -19,7 +22,7 @@ app.get('', (req, res)=>{
     res.render('index', {
         title: 'Weather Page',
         name: 'Luis'
-    } );
+    });
 });
 
 
@@ -29,7 +32,7 @@ app.get('/about', (req, res)=>{
         name: 'Luis'
     });
 });
-
+ 
 
 app.get('/help', (req, res)=>{
     res.render('help', {

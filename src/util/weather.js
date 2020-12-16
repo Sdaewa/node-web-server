@@ -1,5 +1,4 @@
 const request = require('request');
-const timeStamp = require('./timeStamp');
 
 
 const weather = (coordinates, callback) => {
