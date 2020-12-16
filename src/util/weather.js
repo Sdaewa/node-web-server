@@ -9,7 +9,9 @@ const weather = (coordinates, callback) => {
     request({
         url: APIURLWeather,
         json: true
-    }, (error, {body}) => {
+    }, (error, {
+        body
+    }) => {
         if (error) {
             callback(`Low Level Error Weather API`, undefined);
         } else if (body.error) {
