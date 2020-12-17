@@ -1,9 +1,8 @@
-const submitBtn = document.getElementById('submit-btn');
-console.log(submitBtn)
-const input = document.getElementById('input');
+const weatherForm = document.querySelector('form');
 
 
-fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
+
+fetch(`http://localhost:3000/weather?address=!`).then((response) => {
     response.json().then((data) => {
         if (data.error) {
             console.log('error');
@@ -13,10 +12,7 @@ fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
     });
 });
 
-const submitLocation = (location) => {
-    return location = input.value;
-}
 
-
-
-submitBtn.addEventListener('submit', submitLocation);
+weatherForm.addEventListener('submit', () => {
+    console.log('testis');
+});
