@@ -22,7 +22,6 @@ weatherForm.addEventListener('submit', (e) => {
                 msgTwo.textContent = data.Forecast;
                 msgThree.textContent = data.Temperature;
                 msgFour.textContent = data.ChancesOfRain;
-                msgFive.textContent = data.CheckedAt;
                 console.log(data)
             };
         });
