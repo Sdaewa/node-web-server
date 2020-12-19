@@ -2,7 +2,9 @@ const weatherForm = document.querySelector('form');
 const input = document.querySelector('input');
 const msgOne = document.querySelector('#message-one');
 const msgTwo = document.querySelector('#message-two');
-
+const msgThree = document.querySelector('#message-three');
+const msgFour = document.querySelector('#message-four');
+const msgFive = document.querySelector('#message-five');
 
 
 weatherForm.addEventListener('submit', (e) => {
@@ -16,8 +18,12 @@ weatherForm.addEventListener('submit', (e) => {
             if (data.error) {
                 msgOne.textContent = data.error;
             } else {
-                msgOne.textContent = data.Forecast;
-                msgTwo.textContent = data.Location;
+                msgOne.textContent = data.Location;
+                msgTwo.textContent = data.Forecast;
+                msgThree.textContent = data.Temperature;
+                msgFour.textContent = data.ChancesOfRain;
+                msgFive.textContent = data.CheckedAt;
+                console.log(data)
             };
         });
     });
